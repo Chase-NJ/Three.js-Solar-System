@@ -30,17 +30,26 @@ export const GRID_VERTEX_SHADER = `
 export const GRID_FRAGMENT_SHADER = `
     uniform vec3 gridColor;
     uniform float opacity, spacing;
+    uniform vec3 playerPosition;
+    uniform float maxVisibleDistance;
+    uniform float fadeStartDistance;
     varying vec3 vWorldPos;
 
-    // draw anti‑aliased grid lines
+    // draw anti-aliased grid lines with distance-based fading
     void main(){
+      // Calculate distance from player to current grid point
+      float distToPlayer = length(vWorldPos - playerPosition);
+      
+      // Calculate fade factor based on distance
+      float fadeFactor = 1.0 - smoothstep(fadeStartDistance, maxVisibleDistance, distToPlayer);
+      
       // uv in grid units
       vec2 uv = vWorldPos.xz / spacing;
 
       // grid pattern: distance to nearest line
       vec2 g = abs(fract(uv) - 0.5);
 
-      // approximate screen‑space derivative for AA
+      // approximate screen-space derivative for AA
       vec2 fw = fwidth(uv);
 
       // line mask: thin where g < fw
@@ -49,8 +58,11 @@ export const GRID_FRAGMENT_SHADER = `
       // combine X and Z lines
       float mask = 1.0 - min(line.x, line.y);
 
+      // Apply both the grid mask and the distance fade
+      float finalOpacity = mask * opacity * fadeFactor;
+      
       // final color + alpha
-      gl_FragColor = vec4(gridColor, mask * opacity);
+      gl_FragColor = vec4(gridColor, finalOpacity);
     }
 `;
 

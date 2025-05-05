@@ -21,6 +21,12 @@ import {
   setupXWingControls, 
   updateXWing 
 } from './xwing.js';
+import {
+  createStarField,
+  createSpaceBackground,
+  updateSpaceBackground
+} from './stars.js';
+import { createDistantGalaxies } from './galaxies.js';
 
 // Main scene setup
 const scene = new THREE.Scene();
@@ -31,6 +37,11 @@ const clock = new THREE.Clock();
 // Setup renderer
 renderer.setSize(window.innerWidth, window.innerHeight);
 renderer.physicallyCorrectLights = true;
+
+// Enable tone mapping for more realistic lighting
+renderer.toneMapping = THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = 0.8;
+
 document.body.appendChild(renderer.domElement);
 
 // Set up camera and controls
@@ -52,6 +63,17 @@ composer.addPass(bloom);
 // Add ambient light
 const hemi = new THREE.HemisphereLight(0x8888ff, 0x000011, 0.05);
 scene.add(hemi);
+
+// Create and add the space background
+const spaceBackground = createSpaceBackground();
+scene.add(spaceBackground.mesh);
+
+// Create and add distant galaxies and nebulae
+createDistantGalaxies(scene);
+
+// Create and add star field
+const starField = createStarField();
+scene.add(starField);
 
 // Create and add the grid
 const grid = createGrid();
@@ -108,8 +130,19 @@ function animate() {
   // Update celestial bodies
   updateCelestialBodies(celestialBodies, t, grid.material);
   
+  // Update space background
+  updateSpaceBackground(spaceBackground, t);
+  
   // Update X-Wing position and camera
   updateXWing(xWing, camera, delta);
+
+  // Update grid position uniform to match X-Wing position
+  if (xWing && grid.material.uniforms) {
+    grid.material.uniforms.playerPosition.value.copy(xWing.position);
+  }
+  
+  // Make stars slowly rotate for a subtle effect
+  starField.rotation.y = t * 0.001;
   
   // Render the scene with post-processing
   composer.render();

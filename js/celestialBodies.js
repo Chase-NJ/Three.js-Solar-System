@@ -31,12 +31,12 @@ export function createSun() {
     fragmentShader: SUN_FRAGMENT_SHADER
   });
   
-  const sunGeometry = new THREE.SphereGeometry(8, 128, 128);
+  const sunGeometry = new THREE.SphereGeometry(16, 128, 128);
   const sunMesh = new THREE.Mesh(sunGeometry, sunMaterial);
   sunMesh.position.set(0, 0, 0);
   
   // The Sun should emit light
-  const sunLight = new THREE.PointLight(0xffffff, 1000, 0, 2);
+  const sunLight = new THREE.PointLight(0xffffff, 100000, 0, 2);
   sunMesh.add(sunLight);
   sunLight.position.set(0, 0, 0);
   
