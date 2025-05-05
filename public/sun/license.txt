@@ -1,0 +1,11 @@
+Model Information:
+* title:	SUN
+* source:	https://sketchfab.com/3d-models/sun-c4ca8345898b414c9d339bc35fc50532
+* author:	JCK (https://sketchfab.com/JCKART)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "SUN" (https://sketchfab.com/3d-models/sun-c4ca8345898b414c9d339bc35fc50532) by JCK (https://sketchfab.com/JCKART) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
