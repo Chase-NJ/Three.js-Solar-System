@@ -61,7 +61,7 @@ const bloom = new UnrealBloomPass(
 composer.addPass(bloom);
 
 // Add ambient light
-const hemi = new THREE.HemisphereLight(0x8888ff, 0x000011, 0.05);
+const hemi = new THREE.HemisphereLight(0x8888ff, 0x000011, 1.0);
 scene.add(hemi);
 
 // Create and add the space background

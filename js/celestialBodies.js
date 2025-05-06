@@ -31,7 +31,7 @@ export function createSun() {
     fragmentShader: SUN_FRAGMENT_SHADER
   });
   
-  const sunGeometry = new THREE.SphereGeometry(16, 128, 128);
+  const sunGeometry = new THREE.SphereGeometry(32, 128, 128);
   const sunMesh = new THREE.Mesh(sunGeometry, sunMaterial);
   sunMesh.position.set(0, 0, 0);
   
@@ -48,7 +48,7 @@ export function createSun() {
  * @returns {THREE.Mesh} The Earth mesh
  */
 export function createEarth() {
-  const earthGeo = new THREE.SphereGeometry(1.0, 128, 128);
+  const earthGeo = new THREE.SphereGeometry(4.0, 128, 128);
   const texLoader = new THREE.TextureLoader();
   const colorMap = texLoader.load('earth-day.jpg');
   const topoMap = texLoader.load('earth-topography.jpg');
@@ -115,7 +115,7 @@ export function createMoon(earthMesh) {
   moonTopo.anisotropy = maxAniso;
 
   // sphere segments can stay modest since it's small on screen
-  const moonGeo = new THREE.SphereGeometry(1 * MOON_SCALE, 128, 128);
+  const moonGeo = new THREE.SphereGeometry(4.0 * MOON_SCALE, 128, 128);
 
   const moonMat = new THREE.MeshLambertMaterial({
     map: moonColor,
@@ -131,7 +131,7 @@ export function createMoon(earthMesh) {
   earthMesh.add(moonPivot);
 
   // place Moon on the +X axis of that pivot
-  moonMesh.position.set(MOON_ORBIT_RADIUS, 0, 0);
+  moonMesh.position.set(MOON_ORBIT_RADIUS, 1, 0);
   moonPivot.add(moonMesh);
   
   // Calculate moon orbital speed
@@ -173,5 +173,5 @@ export function updateCelestialBodies(bodies, time, gridMaterial) {
   }
 
   // Rotate Earth on its axis
-  bodies.earth.rotation.y = time * 0.5;
+  bodies.earth.rotation.y = time * 0.1;
 }

@@ -49,8 +49,8 @@ export function createGrid() {
     spacing:    { value: 2.0 },
     color: { value: new THREE.Color(0x00FF00) },
     playerPosition: { value: new THREE.Vector3(0, 0, 0) },
-    maxVisibleDistance: { value: 80.0 }, // Max distance to see grid
-    fadeStartDistance: { value: 30.0 }   // Distance where fade begins
+    maxVisibleDistance: { value: 150.0 }, // Max distance to see grid
+    fadeStartDistance: { value: 50.0 }   // Distance where fade begins
   };
 
   // Create the grid mesh
